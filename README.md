@@ -1,4 +1,4 @@
-[![Modular Core](https://raw.githubusercontent.com/modular/configuration/master/site/config.png "Modular Core")](https://fmna.core.modular.social/ "Modular Core")
+[![Modular Core](https://raw.githubusercontent.com/modular/configuration/master/site/config.png "Modular Core")](https://config.core.modular.social/ "Modular Core")
 
 # Modular Configuration Core
 [![GitHub issues](https://img.shields.io/github/issues/modular/configuration)](https://github.com/modular/configuration/issues)
@@ -7,8 +7,8 @@
 [![GitHub release](https://img.shields.io/github/release/modular/configuration.svg)](https://github.com/modular/configuration/releases)
 
 
-[Site](https://fmna.core.modular.social/) |
-[Docs](https://fmna.core.modular.social/docs/) |
+[Site](https://config.core.modular.social/) |
+[Docs](https://config.core.modular.social/docs/) |
 [Contributing](https://github.com/modular/configuration/blob/master/CONTRIBUTING.md) |
 [Security](https://github.com/modular/configuration/blob/master/SECURITY.md) |
 [Modular](https://github.com/modular) |
