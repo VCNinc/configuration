@@ -1,6 +1,6 @@
 {
   "name": "@modular/config",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "description": "Modular Network Configuration Manager (config)",
   "main": "index.js",
   "homepage": "https://config.core.modular.social/",
@@ -45,7 +45,7 @@
     "configuration",
     "config",
     "options",
-	"settings"
+    "settings"
   ],
   "publishConfig": {
     "access": "public"
