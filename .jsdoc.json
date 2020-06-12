@@ -1,0 +1,32 @@
+{
+	"opts": {
+		"template": "node_modules/docdash",
+        "encoding": "utf8",
+        "destination": "site/docs/",
+        "recurse": true,
+        "verbose": true
+	},
+	"docdash": {
+		"openGraph": {
+			"title": "Documentation | Configuration (config) | Modular",
+			"type": "website",
+			"image": "../config.png",
+			"site-name": "Modular",
+			"url": "https://github.com/modular/config"
+		},
+		"meta": {
+			"title": "Documentation | Configuration (config) | Modular",
+			"description": "Documentation for the configuration core component of Modular."
+		},
+		"search": true,
+		"menu": {
+			"Project Website": {
+				"href": "https://config.core.modular.social/"
+			},
+			"GitHub Repository": {
+				"href": "https://github.com/modular/config/"
+			}
+		},
+		"scripts": ["../docs.css", "../docs.js"]
+	}
+}
