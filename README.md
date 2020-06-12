@@ -35,4 +35,4 @@ Modular is a an open-source standard for decentralized social communication. It 
 	npm i --save @modular/config
 
 ### In Node.js:
-	var {ModularConfiguration} = require('config');
+	var {ModularConfiguration} = require('@modular/config');

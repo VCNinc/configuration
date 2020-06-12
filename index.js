@@ -9,6 +9,8 @@
  * @author Modulo (https://github.com/modulo) <modzero@protonmail.com>
  */
 
+var { ModularTrustRoot } = require('@modular/smcc-core')
+
 /**
  * Class representing a Modular Network Configuration.
  *
@@ -30,53 +32,62 @@ class ModularConfiguration {
    * @param {number} options.sectorMapSize - The sector map size of the primary sector map.
    * @param {number} options.logoSectorMapSize - The sector map size of the logo sector map.
    * @param {number} options.iconSectorMapSize - The sector map size of the icon sector map.
+   * @param {string} options.root.fingerprint - The fingerprint of the modular network trust root.
+   * @param {string} options.root.publicKeyArmored - The ASCII-armored modular network trust root public key.
    * @author Modulo (https://github.com/modulo) <modzero@protonmail.com>
    * @since 1.0.0
+   * @async
    */
-  constructor (options) {
-    if (arguments.length !== 1) throw new RangeError('ModularConfiguration constructor expects exactly one argument')
+  static async new (options) {
+    const config = new ModularConfiguration()
+
+    if (arguments.length !== 1) throw new RangeError('ModularConfiguration.new expects exactly one argument')
     if (typeof options !== 'object' || options === null) throw new TypeError('Options must be an object')
 
-    this.dohEndpoints = []
+    config.dohEndpoints = []
     options.dohEndpoints.forEach((endpoint) => {
       const urlRegex = /^(https:\/\/)[a-z0-9]+([-.]{1}[a-z0-9]+)*\.[a-z]{2,}(:[0-9]{1,5})?(\/.*)?$/g
       if (!urlRegex.test(endpoint)) throw new TypeError('Invalid DNS over HTTPS (DoH) endpoint: ' + endpoint)
-      this.dohEndpoints.push(endpoint)
+      config.dohEndpoints.push(endpoint)
     })
 
-    this.dnsSeeds = []
+    config.dnsSeeds = []
     options.dnsSeeds.forEach((seed) => {
       const hostRegex = /^([a-z0-9]+\.|-)+([a-z0-9]+\.)+$/g
       if (!hostRegex.test(seed)) throw new TypeError('Invalid DNS seed: ' + seed)
-      this.dnsSeeds.push(seed)
+      config.dnsSeeds.push(seed)
     })
 
-    this.httpsSeeds = []
+    config.httpsSeeds = []
     options.httpsSeeds.forEach((seed) => {
       const urlRegex = /^(https:\/\/)[a-z0-9]+([-.]{1}[a-z0-9]+)*\.[a-z]{2,}(:[0-9]{1,5})?(\/.*)?$/g
       if (!urlRegex.test(seed)) throw new TypeError('Invalid HTTPS seed: ' + seed)
-      this.httpsSeeds.push(seed)
+      config.httpsSeeds.push(seed)
     })
 
     if (!Number.isInteger(options.networkModulus)) throw new TypeError('Network modulus must be an integer')
     if (options.networkModulus <= 0) throw new RangeError('Network modulus must be positive')
     if (Math.log2(options.networkModulus) % 1 !== 0) throw new TypeError('Network modulus must be a power of 2')
-    this.networkModulus = options.networkModulus
+    config.networkModulus = options.networkModulus
 
     if (!Number.isInteger(options.sectorMapSize)) throw new TypeError('Sector map size must be an integer')
     if (options.sectorMapSize <= 0) throw new RangeError('Sector map size must be positive')
     if ((Math.log(options.sectorMapSize) / Math.log(4)) % 1 !== 0) throw new RangeError('Sector map size must be a power of 4')
-    this.sectorMapSize = options.sectorMapSize
+    config.sectorMapSize = options.sectorMapSize
 
     if (!Number.isInteger(options.logoSectorMapSize)) throw new TypeError('Logo sector map size must be an integer')
     if (options.logoSectorMapSize <= 0) throw new RangeError('Logo sector map size must be positive')
     if ((Math.log(options.logoSectorMapSize) / Math.log(4)) % 1 !== 0) throw new RangeError('Logo sector map size must be a power of 4')
-    this.logoSectorMapSize = options.logoSectorMapSize
+    config.logoSectorMapSize = options.logoSectorMapSize
 
     if (!Number.isInteger(options.iconSectorMapSize)) throw new TypeError('Icon sector map size must be an integer')
     if (options.iconSectorMapSize <= 0) throw new RangeError('Icon sector map size must be positive')
     if ((Math.log(options.iconSectorMapSize) / Math.log(4)) % 1 !== 0) throw new RangeError('Icon sector map size must be a power of 4')
-    this.iconSectorMapSize = options.iconSectorMapSize
+    config.iconSectorMapSize = options.iconSectorMapSize
+
+    config.root = await ModularTrustRoot.new(options.root.fingerprint, options.root.publicKeyArmored)
+
+    return config
   }
 }
 

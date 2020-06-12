@@ -49,5 +49,8 @@
   ],
   "publishConfig": {
     "access": "public"
+  },
+  "dependencies": {
+    "@modular/smcc-core": "^1.0.1"
   }
 }
