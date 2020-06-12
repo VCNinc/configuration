@@ -12,7 +12,7 @@
 			"type": "website",
 			"image": "../config.png",
 			"site-name": "Modular",
-			"url": "https://github.com/modular/config"
+			"url": "https://config.core.modular.social/docs"
 		},
 		"meta": {
 			"title": "Documentation | Configuration (config) | Modular",
@@ -24,7 +24,7 @@
 				"href": "https://config.core.modular.social/"
 			},
 			"GitHub Repository": {
-				"href": "https://github.com/modular/config/"
+				"href": "https://github.com/modular/configuration/"
 			}
 		},
 		"scripts": ["../docs.css", "../docs.js"]
