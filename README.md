@@ -1,6 +1,6 @@
 [![Modular Core](https://raw.githubusercontent.com/modular/configuration/master/site/config.png "Modular Core")](https://fmna.core.modular.social/ "Modular Core")
 
-# Modular Arithmetic Core
+# Modular Configuration Core
 [![GitHub issues](https://img.shields.io/github/issues/modular/configuration)](https://github.com/modular/configuration/issues)
 [![GitHub license](https://img.shields.io/github/license/modular/configuration)](https://github.com/modular/configuration/blob/master/LICENSE)
 [![GitHub tag](https://img.shields.io/github/tag/modular/configuration.svg)](https://github.com/modular/configuration/tags)
@@ -14,7 +14,7 @@
 [Modular](https://github.com/modular) |
 [Modulo](https://github.com/modulo)
 
-The Fast Modular Networking Arithmetic Core (config) package is a core component of Modular. It performs the modular arithmetic calculations that are used by nodes to determine how to route messages and ensure total network coverage.
+The Modular Configuration (config) package is a core component of Modular. It contains a modular network configuration handler/wrapper to store, manage, and validate modular network configurations.
 
 Modular is a an open-source standard for decentralized social communication. It aims to solve the issues of censorship, deplatforming, intrusive adveritsing, poor user privacy that are prevalent on centralized social media platforms. Users on a Modular Network can communicate with eachother across the world without any centralized point of failure.
 
