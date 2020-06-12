@@ -23,13 +23,13 @@ class ModularConfiguration {
    * let config = new ModularConfiguration({...});
    *
    * @param {Object} options - Object representing the configuration options.
-   * @param {string[]} options.dohEndpoints -
-   * @param {string[]} options.dnsSeeds -
-   * @param {string[]} options.httpsSeeds -
-   * @param {number} options.networkModulus -
-   * @param {number} options.sectorMapSize -
-   * @param {number} options.logoSectorMapSize -
-   * @param {number} options.iconSectorMapSize -
+   * @param {string[]} options.dohEndpoints - A list of DNS over HTTPS endpoints to be used for bootstrapping.
+   * @param {string[]} options.dnsSeeds - A list of DNS seeds to be used for bootstrapping.
+   * @param {string[]} options.httpsSeeds - A list of HTTPS seeds to be used for bootstrapping.
+   * @param {number} options.networkModulus - The network modulus of the modular network.
+   * @param {number} options.sectorMapSize - The sector map size of the primary sector map.
+   * @param {number} options.logoSectorMapSize - The sector map size of the logo sector map.
+   * @param {number} options.iconSectorMapSize - The sector map size of the icon sector map.
    * @author Modulo (https://github.com/modulo) <modzero@protonmail.com>
    * @since 1.0.0
    */
