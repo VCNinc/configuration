@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    
+    <meta charset="utf-8">
+    <title>index.js - Documentation | Configuration (config) | Modular</title>
+    
+    <meta name="description" content="Documentation for the configuration core component of Modular." />
+    
+    
+    
+    <meta property="og:title" content="Documentation | Configuration (config) | Modular"/>
+    <meta property="og:type" content="website"/>
+    <meta property="og:image" content="../config.png"/>
+    
+    <meta property="og:url" content="https://github.com/modular/config"/>
+    
+    <script src="scripts/prettify/prettify.js"></script>
+    <script src="scripts/prettify/lang-css.js"></script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc.css">
+    <script src="scripts/nav.js" defer></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+
+<input type="checkbox" id="nav-trigger" class="nav-trigger" />
+<label for="nav-trigger" class="navicon-button x">
+  <div class="navicon"></div>
+</label>
+
+<label for="nav-trigger" class="overlay"></label>
+
+<nav >
+    
+    <input type="text" id="nav-search" placeholder="Search" />
+    
+    <h2><a href="index.html">Home</a></h2><h2><a href="https://config.core.modular.social/" >Project Website</a></h2><h2><a href="https://github.com/modular/config/" >GitHub Repository</a></h2><h3>Classes</h3><ul><li><a href="ModularConfiguration.html">ModularConfiguration</a></li></ul>
+</nav>
+
+<div id="main">
+    
+    <h1 class="page-title">index.js</h1>
+    
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/**
+ * @file Modular Network Configuration Manager (config package)
+ * @copyright Modular 2020
+ * @license MIT
+ *
+ * @description
+ * Modular network configuration handler/wrapper to store, manage, and validate modular network configurations.
+ *
+ * @author Modulo (https://github.com/modulo) &lt;modzero@protonmail.com>
+ */
+
+/**
+ * Class representing a Modular Network Configuration.
+ *
+ * @author Modulo (https://github.com/modulo) &lt;modzero@protonmail.com>
+ * @since 1.0.0
+ */
+class ModularConfiguration {
+  /**
+   * Create a new {@link ModularConfiguration}.
+   *
+   * @example
+   * let config = new ModularConfiguration({...});
+   *
+   * @param {Object} options - Object representing the configuration options.
+   * @param {string[]} options.dohEndpoints -
+   * @param {string[]} options.dnsSeeds -
+   * @param {string[]} options.httpsSeeds -
+   * @param {number} options.networkModulus -
+   * @param {number} options.sectorMapSize -
+   * @param {number} options.logoSectorMapSize -
+   * @param {number} options.iconSectorMapSize -
+   * @author Modulo (https://github.com/modulo) &lt;modzero@protonmail.com>
+   * @since 1.0.0
+   */
+  constructor (options) {
+    if (arguments.length !== 1) throw new RangeError('ModularConfiguration constructor expects exactly one argument')
+    if (typeof options !== 'object' || options === null) throw new TypeError('Options must be an object')
+
+    this.dohEndpoints = []
+    options.dohEndpoints.forEach((endpoint) => {
+      const urlRegex = /^(https:\/\/)[a-z0-9]+([-.]{1}[a-z0-9]+)*\.[a-z]{2,}(:[0-9]{1,5})?(\/.*)?$/g
+      if (!urlRegex.test(endpoint)) throw new TypeError('Invalid DNS over HTTPS (DoH) endpoint: ' + endpoint)
+      this.dohEndpoints.push(endpoint)
+    })
+
+    this.dnsSeeds = []
+    options.dnsSeeds.forEach((seed) => {
+      const hostRegex = /^([a-z0-9]+\.|-)+([a-z0-9]+\.)+$/g
+      if (!hostRegex.test(seed)) throw new TypeError('Invalid DNS seed: ' + seed)
+      this.dnsSeeds.push(seed)
+    })
+
+    this.httpsSeeds = []
+    options.httpsSeeds.forEach((seed) => {
+      const urlRegex = /^(https:\/\/)[a-z0-9]+([-.]{1}[a-z0-9]+)*\.[a-z]{2,}(:[0-9]{1,5})?(\/.*)?$/g
+      if (!urlRegex.test(seed)) throw new TypeError('Invalid HTTPS seed: ' + seed)
+      this.httpsSeeds.push(seed)
+    })
+
+    if (!Number.isInteger(options.networkModulus)) throw new TypeError('Network modulus must be an integer')
+    if (options.networkModulus &lt;= 0) throw new RangeError('Network modulus must be positive')
+    if (Math.log2(options.networkModulus) % 1 !== 0) throw new TypeError('Network modulus must be a power of 2')
+    this.networkModulus = options.networkModulus
+
+    if (!Number.isInteger(options.sectorMapSize)) throw new TypeError('Sector map size must be an integer')
+    if (options.sectorMapSize &lt;= 0) throw new RangeError('Sector map size must be positive')
+    if ((Math.log(options.sectorMapSize) / Math.log(4)) % 1 !== 0) throw new RangeError('Sector map size must be a power of 4')
+    this.sectorMapSize = options.sectorMapSize
+
+    if (!Number.isInteger(options.logoSectorMapSize)) throw new TypeError('Logo sector map size must be an integer')
+    if (options.logoSectorMapSize &lt;= 0) throw new RangeError('Logo sector map size must be positive')
+    if ((Math.log(options.logoSectorMapSize) / Math.log(4)) % 1 !== 0) throw new RangeError('Logo sector map size must be a power of 4')
+    this.logoSectorMapSize = options.logoSectorMapSize
+
+    if (!Number.isInteger(options.iconSectorMapSize)) throw new TypeError('Icon sector map size must be an integer')
+    if (options.iconSectorMapSize &lt;= 0) throw new RangeError('Icon sector map size must be positive')
+    if ((Math.log(options.iconSectorMapSize) / Math.log(4)) % 1 !== 0) throw new RangeError('Icon sector map size must be a power of 4')
+    this.iconSectorMapSize = options.iconSectorMapSize
+  }
+}
+
+/* Module Exports */
+module.exports.ModularConfiguration = ModularConfiguration
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+    
+    
+</div>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.4</a> on Fri Jun 12 2020 03:01:47 GMT-0500 (Central Daylight Time) using the <a href="https://github.com/clenemt/docdash">docdash</a> theme.
+</footer>
+
+<script>prettyPrint();</script>
+<script src="scripts/polyfill.js"></script>
+<script src="scripts/linenumber.js"></script>
+
+<script src="scripts/search.js" defer></script>
+
+
+
+    <link type="text/css" rel="stylesheet" href="../docs.css">
+    
+    <script src="../docs.js"></script>
+    
+</body>
+</html>
