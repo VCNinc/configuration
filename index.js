@@ -34,6 +34,8 @@ class ModularConfiguration {
    * @param {number} options.iconSectorMapSize - The sector map size of the icon sector map.
    * @param {string} options.root.fingerprint - The fingerprint of the modular network trust root.
    * @param {string} options.root.publicKeyArmored - The ASCII-armored modular network trust root public key.
+   * @param {string} options.networkIdentifier - The name of the modular network this configuration is for.
+   * @param {number} options.version - The version of the standard that this configuration is for.
    * @author Modulo (https://github.com/modulo) <modzero@protonmail.com>
    * @since 1.0.0
    * @async
