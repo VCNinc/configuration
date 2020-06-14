@@ -4,6 +4,8 @@ var should = require('chai').should();
 suite('ModularConfiguration', () => {
 	test('Valid Configuration', async () => {
 		let config = await ModularConfiguration.new({
+			networkIdentifier: 'test',
+			version: 1,
 			dohEndpoints: [
 				"https://cloudflare-dns.com/dns-query",
 				"https://dns.google/resolve",

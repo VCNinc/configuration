@@ -87,6 +87,14 @@ class ModularConfiguration {
 
     config.root = await ModularTrustRoot.new(options.root.fingerprint, options.root.publicKeyArmored)
 
+    if (!Number.isInteger(options.version)) throw new TypeError('Version must be an integer')
+    if (options.version <= 0) throw new RangeError('Version must be positive')
+    config.version = options.version
+
+    if (typeof options.networkIdentifier !== 'string') throw new TypeError('Network identifier must be a string')
+    if (options.networkIdentifier.length === 0) throw new RangeError('Network identifier cannot be empty')
+    config.networkIdentifier = options.networkIdentifier
+
     return config
   }
 }
