@@ -36,6 +36,8 @@ class ModularConfiguration {
    * @param {string} options.root.publicKeyArmored - The ASCII-armored modular network trust root public key.
    * @param {string} options.networkIdentifier - The name of the modular network this configuration is for.
    * @param {number} options.version - The version of the standard that this configuration is for.
+   * @param {number} options.minSectorCoverage - The minimal coverage that each node must achieve on every sector.
+   * @param {number} options.minHomeModCoverage - The minimal coverage that each node must achieve on its home mod.
    * @author Modulo (https://github.com/modulo) <modzero@protonmail.com>
    * @since 1.0.0
    * @async
@@ -96,6 +98,14 @@ class ModularConfiguration {
     if (typeof options.networkIdentifier !== 'string') throw new TypeError('Network identifier must be a string')
     if (options.networkIdentifier.length === 0) throw new RangeError('Network identifier cannot be empty')
     config.networkIdentifier = options.networkIdentifier
+
+    if (!Number.isInteger(options.minSectorCoverage)) throw new TypeError('Minimum sector coverage must be an integer')
+    if (options.minSectorCoverage < 0) throw new RangeError('Minimum sector coverage cannot be negative')
+    config.minSectorCoverage = options.minSectorCoverage
+
+    if (!Number.isInteger(options.minHomeModCoverage)) throw new TypeError('Minimum home mod coverage must be an integer')
+    if (options.minHomeModCoverage < 0) throw new RangeError('Minimum home mod coverage cannot be negative')
+    config.minHomeModCoverage = options.minHomeModCoverage
 
     return config
   }
