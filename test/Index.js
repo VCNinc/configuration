@@ -18,6 +18,8 @@ suite('ModularConfiguration', () => {
 				"https://doh.dns.sb/dns-query",
 				"https://doh.li/dns-query"
 			],
+			minSectorCoverage: 1,
+			minHomeModCoverage: 1,
 			dnsSeeds: [
 				"seed.modular.social.",
 				"modularseed.xyz."
