@@ -25,6 +25,9 @@ suite('ModularConfiguration', () => {
 				"https://doh.dns.sb/dns-query",
 				"https://doh.li/dns-query"
 			],
+			staticSeeds: [
+				"https://rendezvous.modularseed.xyz"
+			],
 			minSectorCoverage: 1,
 			minHomeModCoverage: 1,
 			dnsSeeds: [

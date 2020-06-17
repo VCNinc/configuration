@@ -28,6 +28,7 @@ class ModularConfiguration {
    * @param {string[]} options.dohEndpoints - A list of DNS over HTTPS endpoints to be used for bootstrapping.
    * @param {string[]} options.dnsSeeds - A list of DNS seeds to be used for bootstrapping.
    * @param {string[]} options.httpsSeeds - A list of HTTPS seeds to be used for bootstrapping.
+   * @param {string[]} options.staticSeeds - A list of nodes to be used for bootstrapping.
    * @param {number} options.networkModulus - The network modulus of the modular network.
    * @param {number} options.sectorMapSize - The sector map size of the primary sector map.
    * @param {number} options.logoSectorMapSize - The sector map size of the logo sector map.
@@ -90,6 +91,13 @@ class ModularConfiguration {
       const hostRegex = /^([a-z0-9]+[.-])+([a-z0-9]+\.)+$/g
       if (!hostRegex.test(seed)) throw new TypeError('Invalid DNS seed: ' + seed)
       config.dnsSeeds.push(seed)
+    })
+
+    config.staticSeeds = []
+    options.staticSeeds.forEach((seed) => {
+      const endpointRegex = /^https:\/\/([a-z0-9]+[.-])+([a-z0-9]+)$/g
+      if (!endpointRegex.test(seed)) throw new TypeError('Invalid static seed: ' + seed)
+      config.staticSeeds.push(seed)
     })
 
     config.httpsSeeds = []
