@@ -44,6 +44,7 @@ class ModularConfiguration {
    * @param {number} options.defaultRequestPriority - The default request queue priority.
    * @param {number} options.discoveryRequestPriority - The request queue priority of peer discovery requests.
    * @param {number} options.bootstrapRequestPriority - The request queue priority of bootstrapping requests.
+   * @param {number} options.recoveryDelay - The minimum delay between attempts to recover the network.
    * @author Modulo (https://github.com/modulo) <modzero@protonmail.com>
    * @since 1.0.0
    * @async
@@ -54,8 +55,12 @@ class ModularConfiguration {
     if (arguments.length !== 1) throw new RangeError('ModularConfiguration.new expects exactly one argument')
     if (typeof options !== 'object' || options === null) throw new TypeError('Options must be an object')
 
+    if (!Number.isInteger(options.recoveryDelay)) throw new TypeError('Recovery delay must be an integer')
+    if (options.recoveryDelay < 0) throw new RangeError('Recovery delay cannot be negative')
+    config.recoveryDelay = options.recoveryDelay
+
     if (!Number.isInteger(options.maxConcurrentRequests)) throw new TypeError('Max concurrent requests must be an integer')
-    if (options.maxConcurrentRequests < 0) throw new RangeError('Max concurrent requests must be positive')
+    if (options.maxConcurrentRequests <= 0) throw new RangeError('Max concurrent requests must be positive')
     config.maxConcurrentRequests = options.maxConcurrentRequests
 
     if (!Number.isInteger(options.defaultNodePriority)) throw new TypeError('Default node priority must be an integer')

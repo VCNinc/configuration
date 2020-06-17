@@ -12,6 +12,7 @@ suite('ModularConfiguration', () => {
 			defaultRequestPriority: 200,
 			discoveryRequestPriority: 100,
 			bootstrapRequestPriority: 300,
+			recoveryDelay: 1000,
 			dohEndpoints: [
 				"https://cloudflare-dns.com/dns-query",
 				"https://dns.google/resolve",
