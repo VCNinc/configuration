@@ -6,6 +6,12 @@ suite('ModularConfiguration', () => {
 		let config = await ModularConfiguration.new({
 			networkIdentifier: 'test',
 			version: 1,
+			maxConcurrentRequests: 5,
+			defaultNodePriority: 0,
+			pingPriorityThreshold: 1000,
+			defaultRequestPriority: 200,
+			discoveryRequestPriority: 100,
+			bootstrapRequestPriority: 300,
 			dohEndpoints: [
 				"https://cloudflare-dns.com/dns-query",
 				"https://dns.google/resolve",

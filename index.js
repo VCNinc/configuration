@@ -38,6 +38,12 @@ class ModularConfiguration {
    * @param {number} options.version - The version of the standard that this configuration is for.
    * @param {number} options.minSectorCoverage - The minimal coverage that each node must achieve on every sector.
    * @param {number} options.minHomeModCoverage - The minimal coverage that each node must achieve on its home mod.
+   * @param {number} options.maxConcurrentRequests - The default maximum number of concurrent requests that can be made.
+   * @param {number} options.defaultNodePriority - The default priority that a node receives.
+   * @param {number} options.pingPriorityThreshold - The RTT above which nodes should receive higher than default priority.
+   * @param {number} options.defaultRequestPriority - The default request queue priority.
+   * @param {number} options.discoveryRequestPriority - The request queue priority of peer discovery requests.
+   * @param {number} options.bootstrapRequestPriority - The request queue priority of bootstrapping requests.
    * @author Modulo (https://github.com/modulo) <modzero@protonmail.com>
    * @since 1.0.0
    * @async
@@ -47,6 +53,25 @@ class ModularConfiguration {
 
     if (arguments.length !== 1) throw new RangeError('ModularConfiguration.new expects exactly one argument')
     if (typeof options !== 'object' || options === null) throw new TypeError('Options must be an object')
+
+    if (!Number.isInteger(options.maxConcurrentRequests)) throw new TypeError('Max concurrent requests must be an integer')
+    if (options.maxConcurrentRequests < 0) throw new RangeError('Max concurrent requests must be positive')
+    config.maxConcurrentRequests = options.maxConcurrentRequests
+
+    if (!Number.isInteger(options.defaultNodePriority)) throw new TypeError('Default node priority must be an integer')
+    config.defaultNodePriority = options.defaultNodePriority
+
+    if (!Number.isInteger(options.pingPriorityThreshold)) throw new TypeError('Ping priority threshold must be an integer')
+    config.pingPriorityThreshold = options.pingPriorityThreshold
+
+    if (!Number.isInteger(options.defaultRequestPriority)) throw new TypeError('Default request priority must be an integer')
+    config.defaultRequestPriority = options.defaultRequestPriority
+
+    if (!Number.isInteger(options.discoveryRequestPriority)) throw new TypeError('Discovery request priority must be an integer')
+    config.discoveryRequestPriority = options.discoveryRequestPriority
+
+    if (!Number.isInteger(options.bootstrapRequestPriority)) throw new TypeError('Bootstrap request priority must be an integer')
+    config.bootstrapRequestPriority = options.bootstrapRequestPriority
 
     config.dohEndpoints = []
     options.dohEndpoints.forEach((endpoint) => {
@@ -89,8 +114,6 @@ class ModularConfiguration {
     if ((Math.log(options.iconSectorMapSize) / Math.log(4)) % 1 !== 0) throw new RangeError('Icon sector map size must be a power of 4')
     config.iconSectorMapSize = options.iconSectorMapSize
 
-    config.root = await ModularTrustRoot.new(options.root.fingerprint, options.root.publicKeyArmored)
-
     if (!Number.isInteger(options.version)) throw new TypeError('Version must be an integer')
     if (options.version <= 0) throw new RangeError('Version must be positive')
     config.version = options.version
@@ -106,6 +129,8 @@ class ModularConfiguration {
     if (!Number.isInteger(options.minHomeModCoverage)) throw new TypeError('Minimum home mod coverage must be an integer')
     if (options.minHomeModCoverage < 0) throw new RangeError('Minimum home mod coverage cannot be negative')
     config.minHomeModCoverage = options.minHomeModCoverage
+
+    config.root = await ModularTrustRoot.new(options.root.fingerprint, options.root.publicKeyArmored)
 
     return config
   }
