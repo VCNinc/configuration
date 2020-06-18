@@ -88,7 +88,7 @@ class ModularConfiguration {
 
     config.dnsSeeds = []
     options.dnsSeeds.forEach((seed) => {
-      const hostRegex = /^([a-z0-9]+[.-])+([a-z0-9]+\.)+$/g
+      const hostRegex = /^([a-z0-9]+[.-])+([a-z0-9]+)$/g
       if (!hostRegex.test(seed)) throw new TypeError('Invalid DNS seed: ' + seed)
       config.dnsSeeds.push(seed)
     })

@@ -14,16 +14,8 @@ suite('ModularConfiguration', () => {
 			bootstrapRequestPriority: 300,
 			recoveryDelay: 1000,
 			dohEndpoints: [
-				"https://cloudflare-dns.com/dns-query",
-				"https://dns.google/resolve",
-				"https://doh.securedns.eu/dns-query",
-				"https://doh-jp.blahdns.com/dns-query",
-				"https://dns.dns-over-https.com/dns-query",
-				"https://dns.rubyfish.cn/dns-query",
-				"https://dns.containerpi.com/dns-query",
-				"https://doh-de.blahdns.com/dns-query",
-				"https://doh.dns.sb/dns-query",
-				"https://doh.li/dns-query"
+		    'https://cloudflare-dns.com/dns-query?type=URI&edns_client_subnet=0.0.0.0/0&do=0',
+		    'https://dns.google/resolve?type=256&edns_client_subnet=0.0.0.0/0&do=0'
 			],
 			staticSeeds: [
 				"https://rendezvous.modularseed.xyz"
@@ -31,8 +23,8 @@ suite('ModularConfiguration', () => {
 			minSectorCoverage: 1,
 			minHomeModCoverage: 1,
 			dnsSeeds: [
-				"seed.modular.social.",
-				"modularseed.xyz."
+				"seed.modular.social",
+				"modularseed.xyz"
 			],
 			httpsSeeds: [
 				"https://modularseed.xyz/seed",
