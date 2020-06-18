@@ -26,6 +26,7 @@ class ModularConfiguration {
    *
    * @param {Object} options - Object representing the configuration options.
    * @param {string[]} options.dohEndpoints - A list of DNS over HTTPS endpoints to be used for bootstrapping.
+   * @param {string[]} options.dnsServers - A list of DNS servers to be used for bootstrapping.
    * @param {string[]} options.dnsSeeds - A list of DNS seeds to be used for bootstrapping.
    * @param {string[]} options.httpsSeeds - A list of HTTPS seeds to be used for bootstrapping.
    * @param {string[]} options.staticSeeds - A list of nodes to be used for bootstrapping.
@@ -91,6 +92,13 @@ class ModularConfiguration {
       const hostRegex = /^([a-z0-9]+[.-])+([a-z0-9]+)$/g
       if (!hostRegex.test(seed)) throw new TypeError('Invalid DNS seed: ' + seed)
       config.dnsSeeds.push(seed)
+    })
+
+    config.dnsServers = []
+    options.dnsServers.forEach((server) => {
+      const dnsServerRegex = /^(?:[0-9]{1,3}\.){3}[0-9]{1,3}$/g
+      if (!dnsServerRegex.test(server)) throw new TypeError('Invalid DNS server: ' + server)
+      config.dnsServers.push(server)
     })
 
     config.staticSeeds = []
