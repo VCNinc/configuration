@@ -1,46 +1,46 @@
-var {ModularConfiguration} = require('../index.js');
-var should = require('chai').should();
+var { ModularConfiguration } = require('../index.js')
+var should = require('chai').should()
 
-suite('ModularConfiguration', () => {
-	test('Valid Configuration', async () => {
-		this.config = await ModularConfiguration.new({
-			networkIdentifier: 'test',
-			version: 1,
-			maxConcurrentRequests: 5,
-			defaultNodePriority: 0,
-			pingPriorityThreshold: 1000,
-			defaultRequestPriority: 200,
-			discoveryRequestPriority: 100,
-			bootstrapRequestPriority: 300,
-			recoveryDelay: 1000,
-			dnsServers: [
-				'208.67.222.222',
-				'208.67.220.220'
-			],
-			dohEndpoints: [
-		    'https://cloudflare-dns.com/dns-query?type=URI&edns_client_subnet=0.0.0.0/0&do=0',
-		    'https://dns.google/resolve?type=256&edns_client_subnet=0.0.0.0/0&do=0'
-			],
-			staticSeeds: [
-				"https://rendezvous.modularseed.xyz"
-			],
-			minSectorCoverage: 1,
-			minHomeModCoverage: 1,
-			dnsSeeds: [
-				"seed.modular.social",
-				"modularseed.xyz"
-			],
-			httpsSeeds: [
-				"https://modularseed.xyz/seed",
-				"https://raw.githubusercontent.com/modular/seed/master/seed"
-			],
-			networkModulus: 65536,
-			sectorMapSize: 64,
-			logoSectorMapSize: 16,
-			iconSectorMapSize: 4,
-			root: {
-				fingerprint: `24CAC700CA118104DA6B35C4AF0199E5B99DFB69`,
-				publicKeyArmored:
+test('Full', () => {
+  return new Promise((resolve, reject) => {
+    ModularConfiguration.new({
+      networkIdentifier: 'test',
+      version: 1,
+      maxConcurrentRequests: 5,
+      defaultNodePriority: 0,
+      pingPriorityThreshold: 1000,
+      defaultRequestPriority: 200,
+      discoveryRequestPriority: 100,
+      bootstrapRequestPriority: 300,
+      recoveryDelay: 1000,
+      dnsServers: [
+        '208.67.222.222',
+        '208.67.220.220'
+      ],
+      dohEndpoints: [
+        'https://cloudflare-dns.com/dns-query?type=URI&edns_client_subnet=0.0.0.0/0&do=0',
+        'https://dns.google/resolve?type=256&edns_client_subnet=0.0.0.0/0&do=0'
+      ],
+      staticSeeds: [
+        'https://rendezvous.modularseed.xyz'
+      ],
+      minSectorCoverage: 1,
+      minHomeModCoverage: 1,
+      dnsSeeds: [
+        'seed.modular.social',
+        'modularseed.xyz'
+      ],
+      httpsSeeds: [
+        'https://modularseed.xyz/seed',
+        'https://raw.githubusercontent.com/modular/seed/master/seed'
+      ],
+      networkModulus: 65536,
+      sectorMapSize: 64,
+      logoSectorMapSize: 16,
+      iconSectorMapSize: 4,
+      root: {
+        fingerprint: '24CAC700CA118104DA6B35C4AF0199E5B99DFB69',
+        publicKeyArmored:
 `-----BEGIN PGP PUBLIC KEY BLOCK-----
 Version: GnuPG v1
 
@@ -93,11 +93,10 @@ LMI4o5tIn3rujGUZ6Po6dnjXChCGDaMwbsIh2qkzRH2KQ0yGJjHmJTsjP9QVA9gR
 HWUlahIjut63eivmQQlYY4ryIf5tXGrP1mNfN3uanYh6
 =h/f0
 -----END PGP PUBLIC KEY BLOCK-----`
-			}
-		});
-	});
-
-	test('Duplicate', async () => {
-		let config = await ModularConfiguration.new(this.config);
-	});
-});
+      }
+    }).then((config) => {
+			let duplicate = ModularConfiguration.new(config)
+      resolve()
+    })
+  })
+})

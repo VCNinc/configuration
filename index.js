@@ -51,7 +51,7 @@ class ModularConfiguration {
    * @since 1.0.0
    * @async
    */
-  static async new (options) {
+  static new (options) {
     const config = new ModularConfiguration()
 
     if (arguments.length !== 1) throw new RangeError('ModularConfiguration.new expects exactly one argument')
@@ -154,11 +154,15 @@ class ModularConfiguration {
     if (options instanceof ModularConfiguration) {
       if (options.root === null) throw new TypeError('Options.root must be specified')
       config.root = options.root
+      return config
     } else {
-      config.root = await ModularTrustRoot.new(options.root.fingerprint, options.root.publicKeyArmored)
+      return new Promise((resolve, reject) => {
+        ModularTrustRoot.new(options.root.fingerprint, options.root.publicKeyArmored).then((root) => {
+          config.root = root
+          resolve(config)
+        })
+      })
     }
-
-    return config
   }
 }
 
