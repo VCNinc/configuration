@@ -24,7 +24,7 @@ class ModularConfiguration {
    * @example
    * let config = new ModularConfiguration({...});
    *
-   * @param {Object} options - Object representing the configuration options.
+   * @param {Object|ModularConfiguration} options - Object representing the configuration options.
    * @param {string[]} options.dohEndpoints - A list of DNS over HTTPS endpoints to be used for bootstrapping.
    * @param {string[]} options.dnsServers - A list of DNS servers to be used for bootstrapping.
    * @param {string[]} options.dnsSeeds - A list of DNS seeds to be used for bootstrapping.
@@ -34,6 +34,9 @@ class ModularConfiguration {
    * @param {number} options.sectorMapSize - The sector map size of the primary sector map.
    * @param {number} options.logoSectorMapSize - The sector map size of the logo sector map.
    * @param {number} options.iconSectorMapSize - The sector map size of the icon sector map.
+   * @param {number} options.defaultIgnorePeriod - The default duration to ignore bad-acting peers.
+   * @param {number} options.queueTimeout - The time after which queued requests are terminated.
+   * @param {number} options.maxPeerShare - The maximum number of peers to share.
    * @param {string} options.root.fingerprint - The fingerprint of the modular network trust root.
    * @param {string} options.root.publicKeyArmored - The ASCII-armored modular network trust root public key.
    * @param {string} options.networkIdentifier - The name of the modular network this configuration is for.
@@ -150,6 +153,18 @@ class ModularConfiguration {
     if (!Number.isInteger(options.minHomeModCoverage)) throw new TypeError('Minimum home mod coverage must be an integer')
     if (options.minHomeModCoverage < 0) throw new RangeError('Minimum home mod coverage cannot be negative')
     config.minHomeModCoverage = options.minHomeModCoverage
+
+    if (!Number.isInteger(options.defaultIgnorePeriod)) throw new TypeError('Default ignore period must be an integer')
+    if (options.defaultIgnorePeriod < 0) throw new RangeError('Default ignore period cannot be negative')
+    config.defaultIgnorePeriod = options.defaultIgnorePeriod
+
+    if (!Number.isInteger(options.maxPeerShare)) throw new TypeError('Maximum peer share must be an integer')
+    if (options.maxPeerShare <= 0) throw new RangeError('Maximum peer share must be positive')
+    config.maxPeerShare = options.maxPeerShare
+
+    if (!Number.isInteger(options.queueTimeout)) throw new TypeError('Queue timeout must be an integer')
+    if (options.queueTimeout <= 0) throw new RangeError('Queue timeout must be positive')
+    config.queueTimeout = options.queueTimeout
 
     if (options instanceof ModularConfiguration) {
       if (options.root === null) throw new TypeError('Options.root must be specified')

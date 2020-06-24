@@ -13,6 +13,9 @@ test('Full', () => {
       discoveryRequestPriority: 100,
       bootstrapRequestPriority: 300,
       recoveryDelay: 1000,
+      defaultIgnorePeriod: 86400,
+      queueTimeout: 5000,
+      maxPeerShare: 100,
       dnsServers: [
         '208.67.222.222',
         '208.67.220.220'
