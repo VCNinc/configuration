@@ -151,7 +151,12 @@ class ModularConfiguration {
     if (options.minHomeModCoverage < 0) throw new RangeError('Minimum home mod coverage cannot be negative')
     config.minHomeModCoverage = options.minHomeModCoverage
 
-    config.root = await ModularTrustRoot.new(options.root.fingerprint, options.root.publicKeyArmored)
+    if (options instanceof ModularConfiguration) {
+      if (options.root === null) throw new TypeError('Options.root must be specified')
+      config.root = options.root
+    } else {
+      config.root = await ModularTrustRoot.new(options.root.fingerprint, options.root.publicKeyArmored)
+    }
 
     return config
   }

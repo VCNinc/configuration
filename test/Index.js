@@ -3,7 +3,7 @@ var should = require('chai').should();
 
 suite('ModularConfiguration', () => {
 	test('Valid Configuration', async () => {
-		let config = await ModularConfiguration.new({
+		this.config = await ModularConfiguration.new({
 			networkIdentifier: 'test',
 			version: 1,
 			maxConcurrentRequests: 5,
@@ -95,5 +95,9 @@ HWUlahIjut63eivmQQlYY4ryIf5tXGrP1mNfN3uanYh6
 -----END PGP PUBLIC KEY BLOCK-----`
 			}
 		});
+	});
+
+	test('Duplicate', async () => {
+		let config = await ModularConfiguration.new(this.config);
 	});
 });
