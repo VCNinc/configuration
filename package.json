@@ -27,17 +27,17 @@
   "devDependencies": {
     "chai": "^4.2.0",
     "docdash": "^1.2.0",
-    "eslint": "^7.1.0",
+    "eslint": "^7.4.0",
     "eslint-config-standard": "^14.1.1",
-    "eslint-plugin-import": "^2.20.2",
+    "eslint-plugin-import": "^2.22.0",
     "eslint-plugin-node": "^11.1.0",
     "eslint-plugin-promise": "^4.2.1",
     "eslint-plugin-standard": "^4.0.1",
-    "gh-pages": "^3.0.0",
+    "gh-pages": "^3.1.0",
     "jsdoc": "^3.6.4",
-    "mocha": "^7.2.0",
-    "np": "^6.2.3",
-    "terser": "^4.7.0"
+    "mocha": "^8.0.1",
+    "np": "^6.3.1",
+    "terser": "^4.8.0"
   },
   "keywords": [
     "modular",
@@ -51,6 +51,6 @@
     "access": "public"
   },
   "dependencies": {
-    "@modular/smcc-core": "^1.0.1"
+    "@modular/smcc-core": "^1.1.9"
   }
 }

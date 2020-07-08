@@ -41,6 +41,11 @@ test('Full', () => {
       sectorMapSize: 64,
       logoSectorMapSize: 16,
       iconSectorMapSize: 4,
+      requestTimeout: 60000,
+      maxPostLength: 2048,
+      maxProfileLength: 4096,
+      maxPostCount: 256,
+      maxFollowCount: 4096,
       root: {
         fingerprint: '24CAC700CA118104DA6B35C4AF0199E5B99DFB69',
         publicKeyArmored:

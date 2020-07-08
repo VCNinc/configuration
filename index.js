@@ -50,6 +50,11 @@ class ModularConfiguration {
    * @param {number} options.discoveryRequestPriority - The request queue priority of peer discovery requests.
    * @param {number} options.bootstrapRequestPriority - The request queue priority of bootstrapping requests.
    * @param {number} options.recoveryDelay - The minimum delay between attempts to recover the network.
+   * @param {number} options.requestTimeout - The number of milliseconds for which a signed request is valid.
+   * @param {number} options.maxPostLength - The maximum number of characters in a post.
+   * @param {number} options.maxProfileLength - The maximum number of characters in a user profile.
+   * @param {number} options.maxPostCount - The maximum number of user posts to retain.
+   * @param {number} options.maxFollowCount - The maximum number of other users a user can follow.
    * @author Modulo (https://github.com/modulo) <modzero@protonmail.com>
    * @since 1.0.0
    * @async
@@ -59,6 +64,26 @@ class ModularConfiguration {
 
     if (arguments.length !== 1) throw new RangeError('ModularConfiguration.new expects exactly one argument')
     if (typeof options !== 'object' || options === null) throw new TypeError('Options must be an object')
+
+    if (!Number.isInteger(options.requestTimeout)) throw new TypeError('Request timeout must be an integer')
+    if (options.requestTimeout <= 0) throw new RangeError('Request timeout must be positive')
+    config.requestTimeout = options.requestTimeout
+
+    if (!Number.isInteger(options.maxPostLength)) throw new TypeError('Max post length must be an integer')
+    if (options.maxPostLength <= 0) throw new RangeError('Max post length must be positive')
+    config.maxPostLength = options.maxPostLength
+
+    if (!Number.isInteger(options.maxProfileLength)) throw new TypeError('Max profile length must be an integer')
+    if (options.maxProfileLength <= 0) throw new RangeError('Max profile length must be positive')
+    config.maxProfileLength = options.maxProfileLength
+
+    if (!Number.isInteger(options.maxPostCount)) throw new TypeError('Max post count must be an integer')
+    if (options.maxPostCount <= 0) throw new RangeError('Max post count must be positive')
+    config.maxPostCount = options.maxPostCount
+
+    if (!Number.isInteger(options.maxFollowCount)) throw new TypeError('Max follow count must be an integer')
+    if (options.maxFollowCount <= 0) throw new RangeError('Max follow count must be positive')
+    config.maxFollowCount = options.maxFollowCount
 
     if (!Number.isInteger(options.recoveryDelay)) throw new TypeError('Recovery delay must be an integer')
     if (options.recoveryDelay < 0) throw new RangeError('Recovery delay cannot be negative')
