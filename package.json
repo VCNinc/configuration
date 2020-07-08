@@ -1,6 +1,6 @@
 {
   "name": "@modular/config",
-  "version": "1.0.15",
+  "version": "1.0.16",
   "description": "Modular Network Configuration Manager (config)",
   "main": "index.js",
   "homepage": "https://config.core.modular.social/",
