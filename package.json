@@ -37,7 +37,7 @@
     "jsdoc": "^3.6.4",
     "mocha": "^8.0.1",
     "np": "^6.3.2",
-    "terser": "^4.8.0"
+    "terser": "^4.8.1"
   },
   "keywords": [
     "modular",
